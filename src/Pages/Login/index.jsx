@@ -1,18 +1,16 @@
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import { LayoutComponents } from '../../components/LayoutComponents';
+import { LayoutComponents } from "../../components/LayoutComponents";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   return (
-
     <LayoutComponents>
       <form className="login-form">
         <span className="login-form-title"> Bem vindo </span>
 
-        <span className="login-form-title">
-        </span>
+        <span className="login-form-title"></span>
 
         <div className="wrap-input">
           <input
@@ -36,6 +34,7 @@ export const Login = () => {
 
         <div className="container-login-form-btn">
           <button className="login-form-btn">Login</button>
+          <Link className="txt2" to="/"></Link>
         </div>
 
         <div className="text-center">

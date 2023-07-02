@@ -150,7 +150,8 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 40px;
+  padding: 20px;
 }
 
 .txt1 {
@@ -166,3 +167,17 @@ body, html {
   line-height: 1.5;
   text-decoration: none;
 }
+
+.spanMail-error {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 5px;
+  visibility: hidden;
+  color: red;
+}
+
+.input:focus + .focus-input + .spanMail-error{
+  visibility: visible;
+} 
+

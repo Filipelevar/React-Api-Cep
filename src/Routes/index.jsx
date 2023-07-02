@@ -1,6 +1,6 @@
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { Login } from '../Pages/Login'
+import { Login } from "../Pages/Login";
 import { Register } from "../Pages/Register";
 
 export const AppRouter = () => {
@@ -9,6 +9,7 @@ export const AppRouter = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/profile" element={<Register />} />
       </Routes>
     </Router>
   );
