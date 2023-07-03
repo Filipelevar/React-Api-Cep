@@ -19,11 +19,15 @@ body, html {
   color: azure;
   line-height: 1.2;
   text-align: center;
-  padding: 15px;
+  padding: 5px;
 }
 
 .login-form-title img {
   width: 90px;
+}
+
+.wrap-login{
+  width: 30%;
 }
 
 .wrap-input {
@@ -172,7 +176,7 @@ body, html {
   position: absolute;
   top: 100%;
   left: 0;
-  margin-top: 5px;
+  margin-top: 3px;
   visibility: hidden;
   color: red;
 }

@@ -6,26 +6,87 @@ import InputMask from "react-input-mask";
 export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
   const [Cep, setCep] = useState("");
   const [DataNascimento, setDataNascimento] = useState("");
+  const [Sobrenome, setSobrenome] = useState("");
   const inputEmail = useRef(null);
   const isFocused = inputEmail.current === document.activeElement;
   const [bolEmail, setBolEmail] = useState(false);
+  const [post, setPost] = useState(null);
 
   const validateEmail = (email) => {
-    const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
+    const regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     return email !== "" && email.match(regex) ? true : false;
   };
 
+  // useEffect(() => {
+  //   axios
+  //     .post(urlBase, config)
+  //     .then((Response) => {
+  //       setPost(Response.data);
+  //       console.log(post);
+  //     })
+  //     .catch((error) => {
+  //       throw error;
+  //     });
+  // }, [post]);
+
+  /* requisição para minha API porem so irei utilizar quando for 
+ rendereizar as informaçoes do usuario */
+
+  /* useEffect(() => {
+    fetch("http://localhost:5000/usuario", config)
+      .then((data) => data.json())
+      .then((data) => setPost(data));
+  }, []); */
+
+  async function cadastroUsuario() {
+    try {
+      const usuario = await fetch("http://localhost:5000/usuario", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        //criar um state para o sobrenome e nacionalidade
+        body: JSON.stringify({
+          nome: name,
+          sobrenome: Sobrenome,
+          dataNascimento: DataNascimento,
+          cep: Cep,
+          nacionalidade: "brasil",
+        }),
+      });
+      const responseJson = usuario.json();
+      setPost(responseJson);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     setBolEmail(validateEmail(email));
-    console.log("focus", isFocused);
   }, [email, isFocused]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      alert("As duas senhas devem ser iguais!");
+      return;
+    }
+    cadastroUsuario();
+    setEmail("");
+    setName("");
+    setSobrenome(" ");
+    setPassword("");
+    setConfirmPassword("");
+    setCep("");
+    setDataNascimento("");
   };
+
+  console.log(post);
 
   return (
     <LayoutComponents>
@@ -42,7 +103,17 @@ export const Register = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-          <span className="focus-input" data-placeholder="Nome Completo"></span>
+          <span className="focus-input" data-placeholder="Nome"></span>
+        </div>
+        <div className="wrap-input">
+          <input
+            className={Sobrenome !== "" ? "has-val input" : "input"}
+            type="text"
+            value={Sobrenome}
+            onChange={(e) => setSobrenome(e.target.value)}
+            required
+          />
+          <span className="focus-input" data-placeholder="Sobrenome"></span>
         </div>
 
         <div className="wrap-input">
@@ -70,8 +141,23 @@ export const Register = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <span className="focus-input" data-placeholder="Password"></span>
+          <span className="focus-input" data-placeholder="Senha"></span>
         </div>
+
+        <div className="wrap-input">
+          <input
+            className={confirmPassword !== "" ? "has-val input" : "input"}
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <span
+            className="focus-input"
+            data-placeholder="Confirme sua Senha"
+          ></span>
+        </div>
+
         <div className="wrap-input">
           <InputMask
             id="input-mask"
@@ -87,7 +173,7 @@ export const Register = () => {
         </div>
         <div className="wrap-input">
           <InputMask
-            id="input-mask"
+            id="input-mask1"
             mask="99/99/9999"
             className={DataNascimento !== "" ? "has-val input" : "input"}
             value={DataNascimento}
