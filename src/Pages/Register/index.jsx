@@ -70,16 +70,13 @@ export const Register = () => {
     setBolEmail(validateEmail(email));
   }, [email, isFocused]);
 
-  const handleSubmit = (event) => {
+  const handleSubmitRegister = (event) => {
     event.preventDefault();
-    if (password !== confirmPassword) {
-      alert("As duas senhas devem ser iguais!");
-      return;
-    }
+
     cadastroUsuario();
     setEmail("");
     setName("");
-    setSobrenome(" ");
+    setSobrenome("");
     setPassword("");
     setConfirmPassword("");
     setCep("");
@@ -90,7 +87,11 @@ export const Register = () => {
 
   return (
     <LayoutComponents>
-      <form action="submit" className="login-form" onSubmit={handleSubmit}>
+      <form
+        action="submit"
+        className="login-form"
+        onSubmit={handleSubmitRegister}
+      >
         <span className="login-form-title"> Criar Conta </span>
 
         <span className="login-form-title"></span>
@@ -127,7 +128,7 @@ export const Register = () => {
           />
           <span className="focus-input" data-placeholder="Email"></span>
           {isFocused && !bolEmail && (
-            <span className="spanMail-error">
+            <span className="span-error">
               <b>Email Inválido</b>
             </span>
           )}
@@ -156,6 +157,11 @@ export const Register = () => {
             className="focus-input"
             data-placeholder="Confirme sua Senha"
           ></span>
+          {password !== confirmPassword && (
+            <span className="span-error">
+              <b>Senhas incompatíveis</b>
+            </span>
+          )}
         </div>
 
         <div className="wrap-input">

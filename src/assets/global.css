@@ -172,16 +172,16 @@ body, html {
   text-decoration: none;
 }
 
-.spanMail-error {
+.span-error {
   position: absolute;
   top: 100%;
   left: 0;
   margin-top: 3px;
-  visibility: hidden;
+  visibility: visible;
   color: red;
 }
 
-.input:focus + .focus-input + .spanMail-error{
+.input:focus + .focus-input + .span-error{
   visibility: visible;
 } 
 
