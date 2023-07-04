@@ -57,6 +57,7 @@ export const Register = () => {
           dataNascimento: DataNascimento,
           cep: Cep,
           nacionalidade: "brasil",
+          email: email,
         }),
       });
       const responseJson = usuario.json();
